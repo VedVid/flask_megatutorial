@@ -98,6 +98,13 @@ def edit_profile():
     return render_template("edit_profile.html", title="Edit Profile", form=form)
 
 
+@app.route("/explore")
+@login_required
+def explore():
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+    return render_template("index.html", title="Explore", posts=posts)
+
+
 @app.route("/follow/<username>")
 @login_required
 def follow(username):
