@@ -6,8 +6,14 @@ from werkzeug.urls import url_parse
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from app import app, db
-from app.forms import LoginForm, ResetPasswordRequestForm, ResetPasswordForm,\
-    RegistrationForm, EditProfileForm, PostForm
+from app.forms import (
+    LoginForm,
+    ResetPasswordRequestForm,
+    ResetPasswordForm,
+    RegistrationForm,
+    EditProfileForm,
+    PostForm,
+)
 from app.models import User, Post
 from app.email import send_password_reset_email
 
@@ -96,7 +102,9 @@ def reset_password_request():
             send_password_reset_email(user)
         flash("Check your email for the instructions to reset your password")
         return redirect(url_for("login"))
-    return render_template("reset_password_request.html", title="Reset Password", form=form)
+    return render_template(
+        "reset_password_request.html", title="Reset Password", form=form
+    )
 
 
 @app.route("/reset_password/<token>", methods=["GET", "POST"])
